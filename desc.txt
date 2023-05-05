@@ -4,6 +4,7 @@ npm install -D nodemon concurrently
  npm i config
  npm i bcrypt //для шифрования данных
  npm i express-validate //для валидации
+ npm i jsonwebtoken // для jwt токенов
 
  app.js - для работы с бэкендом
  в /models - создаются модели для хранения в бэкендом
