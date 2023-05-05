@@ -1,4 +1,5 @@
 {
-    "port": 5000,
-    "mongoUri": "mongodb+srv://dotza39:81288128@cluster0.uufkl98.mongodb.net/app?retryWrites=true&w=majority"
+  "port": 5000,
+  "jwtSecret": "my mern project",
+  "mongoUri": "mongodb+srv://dotza39:81288128@cluster0.uufkl98.mongodb.net/app?retryWrites=true&w=majority"
 }
