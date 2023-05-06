@@ -4,6 +4,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 const storageName = "userData";
+
 export const useAuth = () => {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
@@ -13,7 +14,10 @@ export const useAuth = () => {
     setToken(jwtToken);
     setUserId(id);
     //записываем его в локальное хранилище бразера преобразуем их в строку
-    localStorage.setItem(storageName, JSON.stringify({ userId, token }));
+    localStorage.setItem(
+      storageName,
+      JSON.stringify({ userId: id, token: jwtToken })
+    );
   }, []);
 
   const logout = useCallback(() => {
@@ -33,7 +37,7 @@ export const useAuth = () => {
     if (data && data.token) {
       login(data.token, data.userId);
     }
-  }, []);
+  }, [login]);
 
   return { login, logout, token, userId };
 };

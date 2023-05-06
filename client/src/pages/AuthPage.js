@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
+import { AuthContext } from "../context/AuthContext.";
 
 export const AuthPage = () => {
+  //в этом объекте есть все данные, которые мы передаем в провайдера
+  //то есть в auth есть login и logout
+  const auth = useContext(AuthContext);
+
   const message = useMessage();
   const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({
@@ -14,6 +19,10 @@ export const AuthPage = () => {
     message(error);
     clearError();
   }, [error, message, clearError]);
+
+  useEffect(() => {
+    window.M.updateTextFields();
+  });
 
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -33,7 +42,7 @@ export const AuthPage = () => {
       const data = await request("/api/auth/login", "POST", {
         ...form,
       });
-      message(data.message);
+      auth.login(data.token, data.userId);
     } catch (e) {}
   };
 
