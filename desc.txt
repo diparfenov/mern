@@ -1,11 +1,22 @@
+Команда для запуска: npm run dev
+
+//в mern
 npm init -y
 npm install express mongoose
-npm install -D nodemon concurrently
- npm i config
- npm i bcrypt //для шифрования данных
- npm i express-validate //для валидации
- npm i jsonwebtoken // для jwt токенов
+npm install -D nodemon concurrently // concurrently - запускать сразу и бек и фронт
+npm i config
+npm i bcrypt //для шифрования данных
+npm i express-validate //для валидации
+npm i jsonwebtoken // для jwt токенов
 
- app.js - для работы с бэкендом
- в /models - создаются модели для хранения в бэкендом
- в /router - создаются router для разных маршрутов 
+//в client
+npx create-react-app client
+npm i react-router-dom
+npm install materialize-css@next //для css
+
+app.js - для работы с бэкендом
+в /models - создаются модели для хранения в бэкендом
+в /router - создаются router для разных маршрутов 
+
+//Проксирование запросов с клиента на сервер
+//для этого в client в package.jsom добавляем "proxy": "http://localhost:5000" (для разработки)

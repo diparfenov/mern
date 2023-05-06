@@ -4,24 +4,28 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-app.use({ fn: "/api/auth" }, require("./routes/auth.routes"));
+//это нужно чтобы во время ошибки, в body прилетало не undifiend
+//а объект, который мы переводим в строку в блоке if в hhtp.hook.js
+app.use(express.json({ extended: true }));
+
+app.use("/api/auth", require("./routes/auth.routes"));
 
 const PORT = config.get("port") || 5000;
 
-const start = async () => {
-    try {
-        await mongoose.connect(config.get("mongoUri"), {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            //useCreateIndex: true, <-- не рабоатет
-        });
-        app.listen(PORT, () =>
-            console.log(`App has been started on port: ${PORT}...`)
-        );
-    } catch (e) {
-        console.log("Server Error", e.message);
-        process.exit({ code: 1 }); //завершить процесс node
-    }
-};
+async function start() {
+  try {
+    await mongoose.connect(config.get("mongoUri"), {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      autoCreate: true,
+    });
+    app.listen(PORT, () =>
+      console.log(`App has been started on port ${PORT}...`)
+    );
+  } catch (e) {
+    console.log("Server Error", e.message);
+    process.exit(1);
+  }
+}
 
 start();

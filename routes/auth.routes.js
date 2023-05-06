@@ -15,7 +15,7 @@ router.post(
     //валидируем данные в массиве
     check("email", "Invalid email").isEmail(),
     check("password", "Minimum password length - 6 characters").isLength({
-      options: { min: 6 },
+      min: 6,
     }),
   ],
   async (req, res) => {
@@ -74,8 +74,7 @@ router.post(
 
       const user = await User.findOne({ email: email });
 
-      if (user) {
-        //если такой юзер есть в БД выкидываем ошибку
+      if (!user) {
         return res.status(400).json({ message: "User is not a found" });
       }
 
