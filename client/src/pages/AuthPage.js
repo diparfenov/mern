@@ -22,7 +22,7 @@ export const AuthPage = () => {
 
   useEffect(() => {
     window.M.updateTextFields();
-  });
+  }, []);
 
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -56,20 +56,24 @@ export const AuthPage = () => {
             <div>
               <div className="input-field">
                 <input
+                  placeholder="Input email"
                   id="email"
                   type="text"
                   name="email"
                   className="orange-input"
+                  value={form.email}
                   onChange={changeHandler}
                 />
                 <label htmlFor="email">Email</label>
               </div>
               <div className="input-field">
                 <input
+                  placeholder="Input password"
                   id="password"
                   type="password"
                   name="password"
                   className="orange-input"
+                  value={form.password}
                   onChange={changeHandler}
                 />
                 <label htmlFor="password">Password</label>
