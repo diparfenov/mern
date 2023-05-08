@@ -24,7 +24,7 @@ router.post("/generate", auth, async (req, res) => {
     }
 
     //иначе, сформировывыем сокращенныю ссылку
-    const to = baseUrl + "/t" + code;
+    const to = baseUrl + "/t/" + code;
 
     const link = new Link({ code, to, from, owner: req.user.userId });
 
