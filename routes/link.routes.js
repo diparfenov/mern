@@ -5,7 +5,6 @@ const Link = require("../models/Link");
 const auth = require("../middleware/auth.middleware");
 const router = Router();
 
-//Добавляем middlware в роуты для проверки
 router.post("/generate", auth, async (req, res) => {
   try {
     const baseUrl = config.get("baseUrl");
@@ -17,7 +16,7 @@ router.post("/generate", auth, async (req, res) => {
     const code = shortid.generate();
 
     //проверяем есть лм на сервере уже такая ссылка
-    const existing = await Link.findOne({ from: from });
+    const existing = await Link.findOne({ from });
 
     //если есть отправляем в res ее
     if (existing) {
@@ -40,7 +39,7 @@ router.post("/generate", auth, async (req, res) => {
 router.get("/", auth, async (req, res) => {
   try {
     //поле userId мы добавили при создание jwt токена
-    links = await Link.findMany({ owner: req.user.userId });
+    const links = await Link.find({ owner: req.user.userId });
     res.json(links);
   } catch (e) {
     res.status(500).json({ message: "Something went wrong, try again" });
@@ -49,7 +48,7 @@ router.get("/", auth, async (req, res) => {
 
 router.get("/:id", auth, async (req, res) => {
   try {
-    link = await Link.findById(req.params.id);
+    const link = await Link.findById(req.params.id);
     res.json(link);
   } catch (e) {
     res.status(500).json({ message: "Something went wrong, try again" });

@@ -40,7 +40,7 @@ export const CreatePage = () => {
             type="text"
             value={link}
             onChange={(e) => setLink(e.target.value)}
-            onKeyDown={pressHandler}
+            onKeyPress={pressHandler}
           />
           <label htmlFor="link">Input link</label>
         </div>
